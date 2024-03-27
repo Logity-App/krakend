@@ -2,6 +2,8 @@ github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/Logity-App/contracts v0.0.0-20240307064028-298fea533c9c h1:UJ9FmtrGnJcnad67vQa+HmDbQZVizWeWH4iFuGGBtTg=
 github.com/Logity-App/contracts v0.0.0-20240307064028-298fea533c9c/go.mod h1:DBvB1osQhpt3bBD7AZZOVYYGftataJghrF/siNJ6Vhc=
+github.com/Logity-App/contracts v0.0.0-20240326113753-ba24f6cb703f h1:FpzViWnSCM0wwlLCvfEjIN4mwFMLPujtA5Z2iC/h2Ok=
+github.com/Logity-App/contracts v0.0.0-20240326113753-ba24f6cb703f/go.mod h1:DBvB1osQhpt3bBD7AZZOVYYGftataJghrF/siNJ6Vhc=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=
 github.com/bytedance/sonic v1.9.1 h1:6iJ6NqdoxCDr6mbY8h18oSO+cShGSMRGCEo7F2h0x8s=
 github.com/bytedance/sonic v1.9.1/go.mod h1:i736AoUSYt75HyZLoJW9ERYxcy6eaN6h4BZXU064P/U=

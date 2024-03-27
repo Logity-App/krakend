@@ -61,8 +61,11 @@ func (c *Client) VerifyNewPhoneNumber(ctx context.Context, phone string) (*ssov1
 	return resp, nil
 }
 
-func (c *Client) SendSmsCode(ctx context.Context) (*ssov1.Empty, error) {
-	resp, err := c.api.SendSmsCode(ctx, &ssov1.Empty{})
+func (c *Client) SendSmsCode(ctx context.Context, phone string, code string) (*ssov1.SendSmsCodeResponse, error) {
+	resp, err := c.api.SendSmsCode(ctx, &ssov1.SendSmsCodeRequest{
+		Phone:   phone,
+		SmsCode: code,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}

@@ -3,7 +3,7 @@ module github.com/Logity-App/sso
 go 1.22.0
 
 require (
-	github.com/Logity-App/contracts v0.0.0-20240307064028-298fea533c9c
+	github.com/Logity-App/contracts v0.0.0-20240326113753-ba24f6cb703f
 	github.com/gin-gonic/gin v1.9.1
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0

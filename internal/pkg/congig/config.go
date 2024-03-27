@@ -13,7 +13,7 @@ type Config struct {
 }
 
 type AppConfig struct {
-	Env string `env:"ENV" env-default:"local"`
+	Env string `env:"ENVIRONMENT" env-default:"local"`
 }
 
 type GRPCCConfig struct {
@@ -23,8 +23,8 @@ type GRPCCConfig struct {
 
 type Clients struct {
 	Address      string        `env:"CLIENT_ADDRESS"`
-	Timeout      time.Duration `env:"CLIENT_TIMEOUT"`
-	RetriesCount int           `env:"CLIENT_RETRIES_COUNT"`
+	Timeout      time.Duration `env:"CLIENT_TIMEOUT" env-default:"1m"`
+	RetriesCount int           `env:"CLIENT_RETRIES_COUNT" env-default:"3"`
 	//Insecure     bool          `env:"CLIENT_INSECURE"`
 }
 

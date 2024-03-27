@@ -38,19 +38,14 @@ func main() {
 	// TODO : вынести handlers
 	recipesHandler := NewRecipesHandler(ssoClient)
 	// Register Routes
-	router.GET("/", homePage)
 	router.GET("/sso/verify-new-phone-number/:phone", recipesHandler.VerifyNewPhoneNumber)
-	router.GET("/sso/send-sms-code", recipesHandler.SendSmsCode)
+	router.POST("/sso/send-sms-code", recipesHandler.SendSmsCode)
 	router.POST("/sso/sign-up-by-phone", recipesHandler.SignUpByPhone)
 	router.POST("/sso/verify-phone-number", recipesHandler.VerifyPhoneNumber)
 	router.POST("/sso/sign-in-by-phone", recipesHandler.SignInByPhone)
 
 	// Start the server
 	router.Run()
-}
-
-func homePage(c *gin.Context) {
-	c.String(http.StatusOK, "This is my home page")
 }
 
 type SsoHandler struct {
@@ -75,35 +70,51 @@ func (h *SsoHandler) VerifyNewPhoneNumber(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-func (h *SsoHandler) SendSmsCode(c *gin.Context) {
+type SmsRequest struct {
+	Phone   string `json:"phone" binding:"required"`
+	SmsCode string `json:"smsCode" binding:"required"`
+}
 
-	res, err := h.client.SendSmsCode(context.Background())
+func (h *SsoHandler) SendSmsCode(c *gin.Context) {
+	var req SmsRequest
+	c.BindJSON(&req)
+	res, err := h.client.SendSmsCode(context.Background(), req.Phone, req.SmsCode)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 
 	c.JSON(200, res)
+}
+
+type SignUpByPhoneRequest struct {
+	Phone        string `json:"phone" binding:"required"`
+	BirthdayDate string `json:"birthdayDate" binding:"required"`
+	DefaultTag   string `json:"defaultTag" binding:"required"`
 }
 
 func (h *SsoHandler) SignUpByPhone(c *gin.Context) {
-	phone := c.Param("phone")
-	birthdayDate := c.Param("birthdayDate")
-	defaultTag := c.Param("defaultTag")
+	var req SignUpByPhoneRequest
+	c.BindJSON(&req)
 
-	res, err := h.client.SignUpByPhone(context.Background(), phone, birthdayDate, defaultTag)
+	res, err := h.client.SignUpByPhone(context.Background(), req.Phone, req.BirthdayDate, req.DefaultTag)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 
 	c.JSON(200, res)
+}
+
+type VerifyPhoneNumberRequest struct {
+	Phone string `json:"phone" binding:"required"`
 }
 
 func (h *SsoHandler) VerifyPhoneNumber(c *gin.Context) {
-	phone := c.Param("phone")
+	var req VerifyPhoneNumberRequest
+	c.BindJSON(&req)
 
-	res, err := h.client.VerifyPhoneNumber(context.Background(), phone)
+	res, err := h.client.VerifyPhoneNumber(context.Background(), req.Phone)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -112,11 +123,16 @@ func (h *SsoHandler) VerifyPhoneNumber(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-func (h *SsoHandler) SignInByPhone(c *gin.Context) {
-	phone := c.Param("phone")
-	smsCode := c.Param("smsCode")
+type SignInByPhoneRequest struct {
+	Phone   string `json:"phone" binding:"required"`
+	SmsCode string `json:"smsCode" binding:"required"`
+}
 
-	res, err := h.client.SignInByPhone(context.Background(), phone, smsCode)
+func (h *SsoHandler) SignInByPhone(c *gin.Context) {
+	var req SignInByPhoneRequest
+	c.BindJSON(&req)
+
+	res, err := h.client.SignInByPhone(context.Background(), req.Phone, req.SmsCode)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
