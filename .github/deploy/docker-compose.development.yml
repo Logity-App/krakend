@@ -4,12 +4,6 @@ services:
   gateway:
     container_name: gateway
     image: ${DOCKER_USERNAME}/${DOCKER_REPOSITORY}:main
-    environment:
-      - ENV=${ENVIRONMENT}
-      - STORAGE_PATH=${STORAGE_PATH}
-      - TOKEN_TTL=${TOKEN_TTL}
-      - PORT=${SERVER_PORT}
-      - TIMEOUT=${TIMEOUT}
     build:
       context: .
       dockerfile: Dockerfile
