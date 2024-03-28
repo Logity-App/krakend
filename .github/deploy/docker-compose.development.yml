@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  gateway:
-    container_name: gateway
+  krakend:
+    container_name: krakend
     image: ${DOCKER_USERNAME}/${DOCKER_REPOSITORY}:main
     build:
       context: .
